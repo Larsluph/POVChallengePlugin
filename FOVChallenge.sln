@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FOVChallenge", "FOVChallenge\FOVChallenge.vcxproj", "{59B300A8-2863-43F3-AA81-B6F6221E3450}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59B300A8-2863-43F3-AA81-B6F6221E3450}.Debug|x64.ActiveCfg = Debug|x64
+		{59B300A8-2863-43F3-AA81-B6F6221E3450}.Debug|x64.Build.0 = Debug|x64
+		{59B300A8-2863-43F3-AA81-B6F6221E3450}.Release|x64.ActiveCfg = Release|x64
+		{59B300A8-2863-43F3-AA81-B6F6221E3450}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08C636C6-F419-45A9-A855-7A7A4ED35E45}
+	EndGlobalSection
+EndGlobal
