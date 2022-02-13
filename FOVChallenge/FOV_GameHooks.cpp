@@ -3,12 +3,8 @@
 
 void FOVChallenge::OnCountdown(std::string eventName) {
 	if (!enabled || !gameWrapper->IsInGame()) return;
-	cvarManager->log("OnCountdown");
 
 	gameWrapper->SetTimeout([&](GameWrapper* gw) {
-		null_check_assign(cam, gw->GetCamera());
-		base_cam = cam.GetCameraSettings();
-
 		null_check_assign(localCar, gw->GetLocalCar());
 		null_check_assign(localPRI, localCar.GetPRI());
 		null_check_assign(localTeam, localPRI.GetTeam());
@@ -17,8 +13,14 @@ void FOVChallenge::OnCountdown(std::string eventName) {
 			// On game start
 			cvarManager->log("game started");
 			prevScore = localTeam.GetScore();
+
+			null_check_assign(cam, gw->GetCamera());
+			temp_cam = cam.GetCameraSettings();
+			logCamera();
+			
 			isGameStarted = true;
 			isGameEnded = false;
+
 		}
 		else {
 			// On goal
@@ -27,14 +29,14 @@ void FOVChallenge::OnCountdown(std::string eventName) {
 				// scored
 				cvarManager->log("You scored! Gaining FOV...");
 #ifdef NDEBUG
-				setFOV(5, true);
+				setFOV((float)*step, true);
 #endif
 			}
 			else {
 				// took a goal
 				cvarManager->log("You've taken a goal! Losing FOV...");
 #ifdef NDEBUG
-				setFOV(-5, true);
+				setFOV(-(float)(*step), true);
 #endif
 			}
 			prevScore = newScore;
@@ -43,13 +45,17 @@ void FOVChallenge::OnCountdown(std::string eventName) {
 }
 
 void FOVChallenge::OnGameDestroyed(std::string eventName) {
-	cvarManager->log("OnGameDestroyed");
 	if (!enabled || isGameEnded) return;
 
-	null_check_assign(cam, gameWrapper->GetCamera());
-#ifdef NDEBUG
-	cam.SetCameraSettings(base_cam);
-#endif
 	isGameStarted = false;
 	isGameEnded = true;
+}
+
+void FOVChallenge::OnBallcamToggled(std::string eventName) {
+	if (!enabled || !gameWrapper->IsInGame() || !isGameStarted) return;
+
+#ifdef NDEBUG
+	null_check_assign(cam, gameWrapper->GetCamera());
+	cam.SetCameraSettings(temp_cam);
+#endif
 }

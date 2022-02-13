@@ -2,3 +2,7 @@ FOV Challenge Plugin
 1|Enable Plugin|FOV_enable
 7|
 0|Log camera settings|log_cam
+5|FOV Step|FOV_step|-50|50
+8|
+9|Plugin made by Larsluph
+9|Source code available on GitHub: https://github.com/Larsluph/FOVChallenge.git

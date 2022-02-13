@@ -2,9 +2,7 @@
 #include "FOVChallenge.h"
 
 void FOVChallenge::logCamera() {
-	null_check_assign(cam, gameWrapper->GetCamera());
-	auto cam_settings = cam.GetCameraSettings();
-	logCamera(cam_settings);
+	logCamera(temp_cam);
 }
 
 void FOVChallenge::logCamera(ProfileCameraSettings cam) {
@@ -18,17 +16,15 @@ void FOVChallenge::logCamera(ProfileCameraSettings cam) {
 }
 
 void FOVChallenge::setFOV(float fov, bool isDelta) {
-	null_check_assign(cam, gameWrapper->GetCamera());
-	auto cam_settings = cam.GetCameraSettings();
 	float new_fov;
 
 	if (isDelta) {
-		new_fov = cam_settings.FOV + fov;
-		if (cam_settings.FOV == 110) {
+		new_fov = temp_cam.FOV + fov;
+		if (temp_cam.FOV == 110 && fov > 0) {
 			cvarManager->log("FOV already maximized. Keep it up!");
 			return;
 		}
-		else if (cam_settings.FOV == 60) {
+		else if (temp_cam.FOV == 60 && fov < 0) {
 			cvarManager->log("FOV already minimized. u bad :)");
 			return;
 		}
@@ -43,11 +39,12 @@ void FOVChallenge::setFOV(float fov, bool isDelta) {
 
 	new_fov = fminf(110.F, fmaxf(60.F, new_fov));
 	
-	cvarManager->log("Changed FOV: " + std::to_string(cam_settings.FOV) + " -> " + std::to_string(new_fov));
-	gameWrapper->Toast("FOV Challenge Plugin", "FOV Changed to " + std::to_string(new_fov) + " (previously " + std::to_string(cam_settings.FOV) + ")");
+	cvarManager->log("Changed FOV: " + std::to_string(temp_cam.FOV) + " -> " + std::to_string(new_fov));
+	gameWrapper->Toast("FOV Challenge Plugin", "FOV Changed to " + std::to_string(new_fov) + " (previously " + std::to_string(temp_cam.FOV) + ")");
 
-	logCamera(cam_settings);
-	cam_settings.FOV = new_fov;
-	cam.SetCameraSettings(cam_settings);
+	logCamera(temp_cam);
+	temp_cam.FOV = new_fov;
+	null_check_assign(cam, gameWrapper->GetCamera());
+	cam.SetCameraSettings(temp_cam);
 	logCamera();
 }

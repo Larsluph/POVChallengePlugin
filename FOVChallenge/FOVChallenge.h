@@ -14,12 +14,13 @@ constexpr auto plugin_version = "1.0";
 class FOVChallenge: public BakkesMod::Plugin::BakkesModPlugin
 {
 	std::shared_ptr<bool> enabled;
+	std::shared_ptr<int> step;
 
 	int prevScore = 0;
 	bool isGameStarted = false;
 	bool isGameEnded = false;
 
-	ProfileCameraSettings base_cam;
+	ProfileCameraSettings temp_cam = { 0 };
 
 	//Boilerplate
 	virtual void onLoad();
@@ -28,6 +29,7 @@ class FOVChallenge: public BakkesMod::Plugin::BakkesModPlugin
 	// GameHooks
 	void OnCountdown(std::string);
 	void OnGameDestroyed(std::string);
+	void OnBallcamToggled(std::string);
 
 	// Utils
 	void logCamera();
