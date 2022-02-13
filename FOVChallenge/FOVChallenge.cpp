@@ -20,7 +20,7 @@ void FOVChallenge::onLoad()
 	gameWrapper->HookEvent("Function GameEvent_TA.Countdown.BeginState", bind(&FOVChallenge::OnCountdown, this, std::placeholders::_1));
 	gameWrapper->HookEvent("Function TAGame.GameEvent_Soccar_TA.EventMatchEnded", bind(&FOVChallenge::OnGameDestroyed, this, std::placeholders::_1));
 	gameWrapper->HookEvent("Function TAGame.GameEvent_TA.Destroyed", bind(&FOVChallenge::OnGameDestroyed, this, std::placeholders::_1));
-	gameWrapper->HookEvent("Function TAGame.CameraState_BallCam_TA.UpdateAirAndGroundCamera", bind(&FOVChallenge::OnBallcamToggled, this, std::placeholders::_1));
+	gameWrapper->HookEvent("Function TAGame.CameraState_BallCam_TA.UpdateAirAndGroundCamera", bind(&FOVChallenge::OnCameraUpdate, this, std::placeholders::_1));
 }
 
 void FOVChallenge::onUnload()

@@ -29,7 +29,7 @@ class FOVChallenge: public BakkesMod::Plugin::BakkesModPlugin
 	// GameHooks
 	void OnCountdown(std::string);
 	void OnGameDestroyed(std::string);
-	void OnBallcamToggled(std::string);
+	void OnCameraUpdate(std::string);
 
 	// Utils
 	void logCamera();

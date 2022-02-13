@@ -2,7 +2,7 @@
 #include "FOVChallenge.h"
 
 void FOVChallenge::OnCountdown(std::string eventName) {
-	if (!enabled || !gameWrapper->IsInGame()) return;
+	if (!enabled) return;
 
 	gameWrapper->SetTimeout([&](GameWrapper* gw) {
 		null_check_assign(localCar, gw->GetLocalCar());
@@ -51,8 +51,8 @@ void FOVChallenge::OnGameDestroyed(std::string eventName) {
 	isGameEnded = true;
 }
 
-void FOVChallenge::OnBallcamToggled(std::string eventName) {
-	if (!enabled || !gameWrapper->IsInGame() || !isGameStarted) return;
+void FOVChallenge::OnCameraUpdate(std::string eventName) {
+	if (!enabled || !isGameStarted) return;
 
 #ifdef NDEBUG
 	null_check_assign(cam, gameWrapper->GetCamera());
